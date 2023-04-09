@@ -121,18 +121,5 @@ public class User {
     }
     System.out.println(
         "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
-    // System.out.println("All users:");
-    // System.out.println("+----+-----------------+----------------------------------+");
-    // System.out.println("| ID | Username | Encrypted Password |");
-    // System.out.println("+----+-----------------+----------------------------------+");
-    // for (Object userObj : users) {
-    // JSONObject user = (JSONObject) userObj;
-    // int id = ((Long) user.get("id")).intValue();
-    // String username = (String) user.get("username");
-    // String encryptedPassword = (String) user.get("password");
-    // System.out.printf("| %-2d | %-15s | %-32s |\n", id, username,
-    // encryptedPassword);
-    // }
-    // System.out.println("+----+-----------------+----------------------------------+");
   }
 }
