@@ -1,9 +1,12 @@
 import java.util.Scanner;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class Main {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     int choice;
+    JSONObject user;
 
     do {
       System.out.println("1. Login");
@@ -45,10 +48,55 @@ public class Main {
     System.out.print("Enter password: ");
     String password = scanner.next();
 
-    if (!Login.authenticateUser(username, password)) {
+    int userId = Login.authenticateUser(username, password);
+    if (userId == -1) {
       System.out.println("Invalid username or password.");
+      return;
     }
-    System.out.println("Login successful. Hello ");
+    JSONObject currentUser = null;
+    JSONArray users = User.readUsersFromFile();
+    for (Object userObj : users) {
+      JSONObject user = (JSONObject) userObj;
+      int id = ((Long) user.get("id")).intValue();
+      if (id == userId) {
+        String firstName = (String) user.get("firstName");
+        System.out.println("Login successful. Hello " + firstName);
+        currentUser = user;
+        break;
+      }
+    }
+
+    if (currentUser == null) {
+      System.out.println("User not found.");
+      return;
+    }
+
+    loggedIn(scanner, currentUser);
+  }
+
+  private static void loggedIn(Scanner scanner, JSONObject currentUser) {
+    int loggedInChoice;
+    do {
+      System.out.println("1. View current user");
+      System.out.println("2. Do things (placeholder)");
+      System.out.println("3. Logout");
+      System.out.print("Enter your choice: ");
+      loggedInChoice = scanner.nextInt();
+
+      switch (loggedInChoice) {
+        case 1:
+          User.printSearchedUser(((Long) currentUser.get("id")).intValue());
+          break;
+        case 2:
+          System.out.println("Doing things (placeholder)..."); // Placeholder action
+          break;
+        case 3:
+          System.out.println("Logging out...");
+          break;
+        default:
+          System.out.println("Invalid choice. Please try again.");
+      }
+    } while (loggedInChoice != 3);
   }
 
   private static void addUser(Scanner scanner) {
@@ -73,7 +121,7 @@ public class Main {
   private static void searchUserById(Scanner scanner) {
     System.out.print("Enter user ID: ");
     int id = scanner.nextInt();
-    User.searchUserById(id);
+    User.printSearchedUser(id);
   }
 
   private static void printAllUsers() {

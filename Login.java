@@ -4,7 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Login {
-  public static boolean authenticateUser(String username, String password) {
+  public static int authenticateUser(String username, String password) {
     String encryptedPassword = encryptPassword(password);
     JSONArray users = User.readUsersFromFile();
 
@@ -13,11 +13,11 @@ public class Login {
       String dbUsername = (String) user.get("username");
       String dbPassword = (String) user.get("password");
       if (username.equals(dbUsername) && encryptedPassword.equals(dbPassword)) {
-        return true;
+        return ((Long) user.get("id")).intValue();
       }
     }
 
-    return false;
+    return -1;
   }
 
   public static void addUser(
