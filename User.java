@@ -11,11 +11,12 @@ public class User {
   private static final String FILE_NAME = "db.json";
 
   public static void inputUser(
-      String username, String password, String email, String firstName, String lastName) {
+      String username, int level, String password, String email, String firstName, String lastName) {
     int id = getNextId();
 
     JSONObject newUser = new JSONObject();
     newUser.put("id", id);
+    newUser.put("level", level);
     newUser.put("username", username);
     newUser.put("password", password);
     newUser.put("email", email);
@@ -100,26 +101,25 @@ public class User {
   }
 
   private static void print(JSONArray users) {
+    String br = 
+        "+----+-----------------+---------------+---------------+-----------------+-----------------+----------------------------------+";
+    System.out.println(br);
     System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
-    System.out.println(
-        "| ID | Email           | First Name    | Last Name     | Username        | Encrypted"
-            + " Password               |");
-    System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
+        "| ID | Email           |   Level       | First Name    | Last Name       | Username        | Encrypted Password               |");
+    System.out.println(br);
     for (Object userObj : users) {
       JSONObject user = (JSONObject) userObj;
       int id = ((Long) user.get("id")).intValue();
       String email = (String) user.get("email");
+      String level = (Integer) user.get("level");
       String firstName = (String) user.get("firstName");
       String lastName = (String) user.get("lastName");
       String username = (String) user.get("username");
       String encryptedPassword = (String) user.get("password");
       System.out.printf(
-          "| %-2d | %-15s | %-13s | %-13s | %-15s | %-32s |\n",
-          id, email, firstName, lastName, username, encryptedPassword);
+          "| %-2d | %-15s| %-15s | %-13s | %-13s | %-15s | %-32s |\n",
+          id, email, level, firstName, lastName, username, encryptedPassword);
     }
-    System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
+    System.out.println(br);
   }
 }
