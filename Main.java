@@ -47,6 +47,7 @@ public class Main {
 
     if (!Login.authenticateUser(username, password)) {
       System.out.println("Invalid username or password.");
+      return;
     }
     System.out.println("Login successful. Hello ");
   }
@@ -67,16 +68,18 @@ public class Main {
     System.out.print("Enter password: ");
     String password = scanner.next();
 
-    Login.addUser(email, firstName, lastName, username, password);
+    int id = UserRepository.getNextId();
+    User newUser = new User(id, email, firstName, lastName, username, password);
+    Login.addUser(newUser);
   }
 
   private static void searchUserById(Scanner scanner) {
     System.out.print("Enter user ID: ");
     int id = scanner.nextInt();
-    User.searchUserById(id);
+    UserRepository.searchUserById(id);
   }
 
   private static void printAllUsers() {
-    User.printAllUsers();
+    UserRepository.printAllUsers();
   }
 }
