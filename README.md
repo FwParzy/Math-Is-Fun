@@ -16,7 +16,7 @@ I dont judge, much...
 **Compile**
 
 ```
-javac -cp json-simple-1.1.1.jar -d Classes Login.java User.java Main.java
+javac -cp json-simple-1.1.1.jar -d Classes *.java
 ```  
   
 **Run** 

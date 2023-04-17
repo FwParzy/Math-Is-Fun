@@ -21,42 +21,27 @@ public class UserRepository {
     writeUsersToFile(users);
 
     System.out.println(user.getFirstName() + " added successfully.");
-    //
-    // JSONObject newUser = new JSONObject();
-    // newUser.put("id", id);
-    // newUser.put("username", username);
-    // newUser.put("password", password);
-    // newUser.put("email", email);
-    // newUser.put("firstName", firstName);
-    // newUser.put("lastName", lastName);
-    //
-    // JSONArray users = readUsersFromFile();
-    // users.add(newUser);
-    // writeUsersToFile(users);
-    //
-    // System.out.println(firstName + " added successfully.");
+  }
+    public static JSONObject userToJson(User user) {
+    return user.toJson();
   }
 
-  public static void searchUserById(int id) {
-    JSONArray users = readUsersFromFile();
-    JSONArray userArray = new JSONArray();
+  public static User jsonToUser(JSONObject userJson) {
+    String role = (String) userJson.get("role");
+    return User.fromJson(userJson);
+  }
 
+
+  public static User searchUserById(int id) {
+    JSONArray users = readUsersFromFile();
     for (Object userObj : users) {
-      JSONObject user = (JSONObject) userObj;
-      int userId = ((Long) user.get("id")).intValue();
-      if (userId == id) {
-        userArray.add(user);
-        print(userArray);
-        return;
+      JSONObject userJson = (JSONObject) userObj;
+      User user = jsonToUser(userJson);
+      if (id == user.getId()) {
+        return user;
       }
     }
-    System.out.println("User not found.");
-    return;
-  }
-
-  public static void printAllUsers() {
-    JSONArray users = readUsersFromFile();
-    print(users);
+    return null;
   }
 
   public static int getNextId() {
@@ -106,6 +91,30 @@ public class UserRepository {
       e.printStackTrace();
     }
   }
+
+
+    public static void printSearchedUser(int id) {
+  User user = searchUserById(id);
+  if (user != null) {
+    JSONObject jsonUser = userToJson(user);
+    print(jsonUser);
+  } else {
+    System.out.println("User not found.");
+  }
+}
+
+
+  public static void printAllUsers() {
+    JSONArray users = readUsersFromFile();
+    print(users);
+  }
+
+  private static void print(JSONObject user) {
+    JSONArray users = new JSONArray();
+    users.add(user);
+    print(users);
+  }
+
 
   private static void print(JSONArray users) {
     System.out.println(
