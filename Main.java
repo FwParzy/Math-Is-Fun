@@ -19,7 +19,8 @@ public class Main {
 
       switch (choice) {
         case 1:
-          login(scanner);
+          User currentUser = login(scanner);
+          loggedIn(scanner, currentUser);
           break;
         case 2:
           addUser(scanner);
@@ -36,45 +37,35 @@ public class Main {
         default:
           System.out.println("Invalid choice. Please try again.");
       }
-    } while (choice != 5);
+    } while (choice != 9);
 
     scanner.close();
   }
 
-  private static void login(Scanner scanner) {
+  private static User login(Scanner scanner) {
     System.out.print("Enter username: ");
     String username = scanner.next();
 
     System.out.print("Enter password: ");
     String password = scanner.next();
 
-    int userId = Login.authenticateUser(username, password);
-    if (userId == -1) {
+        User user = Login.authenticateUser(username, password);
+    if (user.getId() == -1) {
       System.out.println("Invalid username or password.");
-      return;
-    }
-    JSONObject currentUser = null;
-    JSONArray users = User.readUsersFromFile();
-    for (Object userObj : users) {
-      JSONObject user = (JSONObject) userObj;
-      int id = ((Long) user.get("id")).intValue();
-      if (id == userId) {
-        String firstName = (String) user.get("firstName");
-        System.out.println("Login successful. Hello " + firstName);
-        currentUser = user;
-        break;
-      }
+      return null;
     }
 
+    User currentUser = UserRepository.searchUserById(user.getId());
     if (currentUser == null) {
       System.out.println("User not found.");
-      return;
+      return null;
     }
 
-    loggedIn(scanner, currentUser);
+    System.out.println("Login successful. Hello " + currentUser.getFirstName());
+    return currentUser;
   }
 
-  private static void loggedIn(Scanner scanner, JSONObject currentUser) {
+  private static void loggedIn(Scanner scanner, User currentUser) {
     int loggedInChoice;
     do {
       System.out.println("1. View current user");
@@ -85,7 +76,7 @@ public class Main {
 
       switch (loggedInChoice) {
         case 1:
-          User.printSearchedUser(((Long) currentUser.get("id")).intValue());
+          UserRepository.printSearchedUser(currentUser.getId());
           break;
         case 2:
           System.out.println("Doing things (placeholder)..."); // Placeholder action
@@ -96,7 +87,7 @@ public class Main {
         default:
           System.out.println("Invalid choice. Please try again.");
       }
-    } while (loggedInChoice != 3);
+    } while (loggedInChoice != 9);
   }
 
   private static void addUser(Scanner scanner) {
@@ -115,16 +106,18 @@ public class Main {
     System.out.print("Enter password: ");
     String password = scanner.next();
 
-    Login.addUser(email, firstName, lastName, username, password);
+    int id = UserRepository.getNextId();
+    User newUser = new User(id, email, firstName, lastName, username, password);
+    Login.addUser(newUser);
   }
 
   private static void searchUserById(Scanner scanner) {
     System.out.print("Enter user ID: ");
     int id = scanner.nextInt();
-    User.printSearchedUser(id);
+    UserRepository.printSearchedUser(id);
   }
 
   private static void printAllUsers() {
-    User.printAllUsers();
+    UserRepository.printAllUsers();
   }
 }

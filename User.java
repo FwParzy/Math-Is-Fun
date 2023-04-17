@@ -1,140 +1,95 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.simple.JSONArray;
 
 public class User {
-  private static final String FILE_NAME = "db.json";
+  private int id;
+  private String email;
+  private String firstName;
+  private String lastName;
+  private String username;
+  private String password;
 
-  public static void inputUser(
-      String username, String password, String email, String firstName, String lastName) {
-    int id = getNextId();
-
-    JSONObject newUser = new JSONObject();
-    newUser.put("id", id);
-    newUser.put("username", username);
-    newUser.put("password", password);
-    newUser.put("email", email);
-    newUser.put("firstName", firstName);
-    newUser.put("lastName", lastName);
-
-    JSONArray users = readUsersFromFile();
-    users.add(newUser);
-    writeUsersToFile(users);
-
-    System.out.println(firstName + " added successfully.");
+  public User(
+      int id,
+      String email,
+      String firstName,
+      String lastName,
+      String username,
+      String password) {
+    this.id = id;
+    this.email = email;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.username = username;
+    this.password = password;
   }
 
-  public static JSONObject searchUserById(int id) {
-    JSONArray users = readUsersFromFile();
-    JSONObject searchedUserObj = new JSONObject();
-
-    for (Object userObj : users) {
-      JSONObject user = (JSONObject) userObj;
-      int userId = ((Long) user.get("id")).intValue();
-      if (userId == id) {
-        searchedUserObj = user;
-        return searchedUserObj;
-      }
-    }
-    System.out.println("User not found.");
-    return null;
+  public int getId() {
+    return id;
   }
 
-  private static int getNextId() {
-    JSONArray users = readUsersFromFile();
-    int maxId = 0;
-
-    for (Object userObj : users) {
-      JSONObject user = (JSONObject) userObj;
-      int userId = ((Long) user.get("id")).intValue();
-      if (userId > maxId) {
-        maxId = userId;
-      }
-    }
-
-    return maxId + 1;
+  public void setId(int id) {
+    this.id = id;
   }
 
-  public static JSONArray readUsersFromFile() {
-    JSONParser parser = new JSONParser();
-    JSONArray users;
-
-    try (FileReader reader = new FileReader(FILE_NAME);
-        BufferedReader bufferedReader = new BufferedReader(reader)) {
-      users = new JSONArray();
-      String line;
-      while ((line = bufferedReader.readLine()) != null) {
-        Object parsed = parser.parse(line);
-        if (parsed instanceof JSONObject) {
-          users.add(parsed);
-        }
-      }
-    } catch (IOException | ParseException e) {
-      users = new JSONArray(); // Return an empty array if file not found or cannot be parsed
-    }
-
-    return users;
+  public String getEmail() {
+    return email;
   }
 
-  private static void writeUsersToFile(JSONArray users) {
-    try (FileWriter file = new FileWriter(FILE_NAME)) {
-      for (Object userObj : users) {
-        JSONObject user = (JSONObject) userObj;
-        file.write(user.toJSONString() + System.lineSeparator());
-      }
-      file.flush();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+  public void setEmail(String email) {
+    this.email = email;
   }
 
-  public static void printSearchedUser(int id) {
-    JSONObject user = searchUserById(id);
-    if (user != null) {
-      print(user);
-    } else {
-      System.out.println("User not found.");
-    }
+  public String getFirstName() {
+    return firstName;
   }
 
-  public static void printAllUsers() {
-    JSONArray users = readUsersFromFile();
-    print(users);
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
-  private static void print(JSONObject user) {
-    JSONArray users = new JSONArray();
-    users.add(user);
-    print(users);
+  public String getLastName() {
+    return lastName;
   }
 
-  private static void print(JSONArray users) {
-    System.out.println(
-        "+----+------------------------------+---------------+---------------+-----------------+----------------------------------+");
-    System.out.println(
-        "| ID | Email                        | First Name    | Last Name     | Username        |"
-            + " Encrypted Password               |");
-    System.out.println(
-        "+----+------------------------------+---------------+---------------+-----------------+----------------------------------+");
-    for (Object userObj : users) {
-      JSONObject user = (JSONObject) userObj;
-      int id = ((Long) user.get("id")).intValue();
-      String email = (String) user.get("email");
-      String firstName = (String) user.get("firstName");
-      String lastName = (String) user.get("lastName");
-      String username = (String) user.get("username");
-      String encryptedPassword = (String) user.get("password");
-      System.out.printf(
-          "| %-2d | %-28s | %-13s | %-13s | %-15s | %-32s |\n",
-          id, email, firstName, lastName, username, encryptedPassword);
-      // TODO ADD GRADES
-    }
-    System.out.println(
-        "+----+------------------------------+---------------+---------------+-----------------+----------------------------------+");
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public JSONObject toJson() {
+    JSONObject userJson = new JSONObject();
+    userJson.put("id", Long.valueOf(getId()));
+    userJson.put("email", getEmail());
+    userJson.put("firstName", getFirstName());
+    userJson.put("lastName", getLastName());
+    userJson.put("username", getUsername());
+    userJson.put("password", getPassword());
+    return userJson;
+  }
+
+  public static User fromJson(JSONObject userJson) {
+    int id = ((Long) userJson.get("id")).intValue();
+    String email = (String) userJson.get("email");
+    String firstName = (String) userJson.get("firstName");
+    String lastName = (String) userJson.get("lastName");
+    String username = (String) userJson.get("username");
+    String password = (String) userJson.get("password");
+    return new User(id, email, firstName, lastName, username, password);
   }
 }

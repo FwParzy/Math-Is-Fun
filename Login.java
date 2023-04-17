@@ -4,26 +4,26 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Login {
-  public static int authenticateUser(String username, String password) {
+  public static User authenticateUser(String username, String password) {
     String encryptedPassword = encryptPassword(password);
-    JSONArray users = User.readUsersFromFile();
+    JSONArray users = UserRepository.readUsersFromFile();
 
     for (Object userObj : users) {
-      JSONObject user = (JSONObject) userObj;
-      String dbUsername = (String) user.get("username");
-      String dbPassword = (String) user.get("password");
-      if (username.equals(dbUsername) && encryptedPassword.equals(dbPassword)) {
-        return ((Long) user.get("id")).intValue();
+      JSONObject userJson = (JSONObject) userObj;
+      User user = UserRepository.jsonToUser(userJson);
+
+      if (username.equals(user.getUsername()) && encryptedPassword.equals(user.getPassword())) {
+        return user;
       }
     }
 
-    return -1;
+    return null;
   }
 
-  public static void addUser(
-      String email, String firstName, String lastName, String username, String password) {
-    String encryptedPassword = encryptPassword(password);
-    User.inputUser(username, encryptedPassword, email, firstName, lastName);
+  public static void addUser(User user) {
+    String encryptedPassword = encryptPassword(user.getPassword());
+    user.setPassword(encryptedPassword);
+    UserRepository.inputUser(user);
   }
 
   // https://www.javatpoint.com/how-to-encrypt-password-in-java
