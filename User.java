@@ -132,6 +132,7 @@ public class User {
       System.out.printf(
           "| %-2d | %-28s | %-13s | %-13s | %-15s | %-32s |\n",
           id, email, firstName, lastName, username, encryptedPassword);
+      // TODO ADD GRADES
     }
     System.out.println(
         "+----+------------------------------+---------------+---------------+-----------------+----------------------------------+");

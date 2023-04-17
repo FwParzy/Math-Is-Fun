@@ -13,7 +13,7 @@ public class Main {
       System.out.println("2. Add user");
       System.out.println("3. Search user by ID");
       System.out.println("4. Print all users");
-      System.out.println("5. Exit");
+      System.out.println("9. Exit");
       System.out.print("Enter your choice: ");
       choice = scanner.nextInt();
 
@@ -30,7 +30,7 @@ public class Main {
         case 4:
           printAllUsers();
           break;
-        case 5:
+        case 9:
           System.out.println("Goodbye!");
           break;
         default:
@@ -79,7 +79,7 @@ public class Main {
     do {
       System.out.println("1. View current user");
       System.out.println("2. Do things (placeholder)");
-      System.out.println("3. Logout");
+      System.out.println("9. Logout");
       System.out.print("Enter your choice: ");
       loggedInChoice = scanner.nextInt();
 
@@ -90,7 +90,7 @@ public class Main {
         case 2:
           System.out.println("Doing things (placeholder)..."); // Placeholder action
           break;
-        case 3:
+        case 9:
           System.out.println("Logging out...");
           break;
         default:
