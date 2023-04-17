@@ -29,26 +29,20 @@ public class User {
     System.out.println(firstName + " added successfully.");
   }
 
-  public static void searchUserById(int id) {
+  public static JSONObject searchUserById(int id) {
     JSONArray users = readUsersFromFile();
-    JSONArray userArray = new JSONArray();
+    JSONObject searchedUserObj = new JSONObject();
 
     for (Object userObj : users) {
       JSONObject user = (JSONObject) userObj;
       int userId = ((Long) user.get("id")).intValue();
       if (userId == id) {
-        userArray.add(user);
-        print(userArray);
-        return;
+        searchedUserObj = user;
+        return searchedUserObj;
       }
     }
     System.out.println("User not found.");
-    return;
-  }
-
-  public static void printAllUsers() {
-    JSONArray users = readUsersFromFile();
-    print(users);
+    return null;
   }
 
   private static int getNextId() {
@@ -99,14 +93,34 @@ public class User {
     }
   }
 
+  public static void printSearchedUser(int id) {
+    JSONObject user = searchUserById(id);
+    if (user != null) {
+      print(user);
+    } else {
+      System.out.println("User not found.");
+    }
+  }
+
+  public static void printAllUsers() {
+    JSONArray users = readUsersFromFile();
+    print(users);
+  }
+
+  private static void print(JSONObject user) {
+    JSONArray users = new JSONArray();
+    users.add(user);
+    print(users);
+  }
+
   private static void print(JSONArray users) {
     System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
+        "+----+------------------------------+---------------+---------------+-----------------+----------------------------------+");
     System.out.println(
-        "| ID | Email           | First Name    | Last Name     | Username        | Encrypted"
-            + " Password               |");
+        "| ID | Email                        | First Name    | Last Name     | Username        |"
+            + " Encrypted Password               |");
     System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
+        "+----+------------------------------+---------------+---------------+-----------------+----------------------------------+");
     for (Object userObj : users) {
       JSONObject user = (JSONObject) userObj;
       int id = ((Long) user.get("id")).intValue();
@@ -116,10 +130,11 @@ public class User {
       String username = (String) user.get("username");
       String encryptedPassword = (String) user.get("password");
       System.out.printf(
-          "| %-2d | %-15s | %-13s | %-13s | %-15s | %-32s |\n",
+          "| %-2d | %-28s | %-13s | %-13s | %-15s | %-32s |\n",
           id, email, firstName, lastName, username, encryptedPassword);
+      // TODO ADD GRADES
     }
     System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
+        "+----+------------------------------+---------------+---------------+-----------------+----------------------------------+");
   }
 }
