@@ -27,10 +27,10 @@ java -cp json-simple-1.1.1.jar:Classes Main.java
 
 Note, The compile and run statements will most likely be outdated soon.
 
-For netbeans, 
-right click on project, 
-click properties,
-then libraries,
-then Add jar/folder button,
-open the json-simple-1.1.1.jar,
+For netbeans
+right click on project
+click properties
+then libraries
+then Add jar/folder button
+open the json-simple-1.1.1.jar
 click OK
