@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 public class Login {
   public static boolean authenticateUser(String username, String password) {
     String encryptedPassword = encryptPassword(password);
-    JSONArray users = User.readUsersFromFile();
+    JSONArray users = Database.readUsersFromFile();
 
     for (Object userObj : users) {
       JSONObject user = (JSONObject) userObj;
@@ -21,12 +21,12 @@ public class Login {
   }
 
   public static void addUser(
-      String email, String firstName, String lastName, String username, String password) {
+    int level, String email, String firstName, String lastName, String username, String password) {
     String encryptedPassword = encryptPassword(password);
-    User.inputUser(username, encryptedPassword, email, firstName, lastName);
+    Database.inputUser( username, level, encryptedPassword, email, firstName, lastName);
   }
 
-  // https://www.javatpoint.com/how-to-encrypt-password-in-java
+//   https://www.javatpoint.com/how-to-encrypt-password-in-java
   private static String encryptPassword(String password) {
     String encryptedPassword = null;
     try {
