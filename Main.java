@@ -32,6 +32,7 @@ public class Main {
           break;
         case 9:
           System.out.println("Goodbye!");
+          scanner.close();
           break;
         default:
           System.out.println("Invalid choice. Please try again.");
@@ -68,7 +69,7 @@ public class Main {
     int loggedInChoice;
     do {
       System.out.println("1. View current user");
-      System.out.println("2. Do things (placeholder)");
+      System.out.println("2. Play MathIsFun");
       System.out.println("9. Logout");
       System.out.print("Enter your choice: ");
       loggedInChoice = scanner.nextInt();
@@ -102,10 +103,10 @@ public class Main {
 
     switch (scanner.nextInt()) {
       case 1: // addition
-        MathFunctions.Addition();
+        MathFunctions.Addition(scanner);
         break;
       case 2: // subtraction
-        MathFunctions.Subtraction();
+        MathFunctions.Subtraction(scanner);
         break;
       case 3: // multiplication
         break;

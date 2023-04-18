@@ -9,7 +9,7 @@ public class MathFunctions {
   private static final String additionFileName = "addquestions.txt";
   private static final String subtractionFileName = "subquestions.txt";
 
-  public static void Addition() {
+  public static void Addition(Scanner scanner) {
 
     System.out.println("Addition");
     int numQuestions = 10; // Number of questions in the game
@@ -21,7 +21,6 @@ public class MathFunctions {
 
       // Read questions from the text file and start the game
       BufferedReader reader = new BufferedReader(new FileReader(additionFileName));
-      Scanner scanner = new Scanner(System.in);
       String line;
       int questionCount = 1;
 
@@ -50,7 +49,6 @@ public class MathFunctions {
       System.out.println("Your score: " + score + " out of " + numQuestions);
 
       reader.close();
-      scanner.close();
     } catch (IOException e) {
       System.out.println("Failed to read questions from file: " + e.getMessage());
     } catch (NumberFormatException e) {
@@ -60,7 +58,7 @@ public class MathFunctions {
     }
   }
 
-  public static void Subtraction() {
+  public static void Subtraction(Scanner scanner) {
     System.out.println("SUBTRACTION");
     int numQuestions2 = 10; // Number of questions in the game
     int score2 = 0; // Player's score2
@@ -71,7 +69,6 @@ public class MathFunctions {
 
       // Read questions from the text file and start the game
       BufferedReader reader = new BufferedReader(new FileReader(subtractionFileName));
-      Scanner scanner = new Scanner(System.in);
       String line;
       int questionCount = 1;
 
@@ -100,7 +97,6 @@ public class MathFunctions {
       System.out.println("Your score: " + score2 + " out of " + numQuestions2);
 
       reader.close();
-      scanner.close();
     } catch (IOException e) {
       System.out.println("Failed to read questions from file: " + e.getMessage());
     } catch (NumberFormatException e) {
