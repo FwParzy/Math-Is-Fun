@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,9 +10,10 @@ public class MathFunctions {
   private static final String additionFileName = "addquestions.txt";
   private static final String subtractionFileName = "subquestions.txt";
 
-  public static void Addition(Scanner scanner) {
+  public static ArrayList<Double> Addition(Scanner scanner) {
 
     System.out.println("Addition");
+    ArrayList<Double> scores = new ArrayList<>();
     int numQuestions = 10; // Number of questions in the game
     int score = 0; // Player's score2
 
@@ -47,6 +49,8 @@ public class MathFunctions {
 
       System.out.println("Game Over!");
       System.out.println("Your score: " + score + " out of " + numQuestions);
+      Double percentage = (double) (score / numQuestions * 100);
+      scores.add(percentage);
 
       reader.close();
     } catch (IOException e) {
@@ -56,10 +60,12 @@ public class MathFunctions {
     } catch (Exception e) {
       System.out.println("An error occurred: " + e.getMessage());
     }
+    return scores;
   }
 
-  public static void Subtraction(Scanner scanner) {
+  public static ArrayList<Double> Subtraction(Scanner scanner) {
     System.out.println("SUBTRACTION");
+    ArrayList<Double> scores = new ArrayList<>();
     int numQuestions2 = 10; // Number of questions in the game
     int score2 = 0; // Player's score2
 
@@ -95,6 +101,8 @@ public class MathFunctions {
 
       System.out.println("Game Over!");
       System.out.println("Your score: " + score2 + " out of " + numQuestions2);
+      Double percentage = (double) (score2 / numQuestions2 * 100);
+      scores.add(percentage);
 
       reader.close();
     } catch (IOException e) {
@@ -104,6 +112,7 @@ public class MathFunctions {
     } catch (Exception e) {
       System.out.println("An error occurred: " + e.getMessage());
     }
+    return scores;
   }
 
   // Method to generate addition questions and store them in a text file
