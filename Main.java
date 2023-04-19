@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 public class Main {
@@ -33,6 +32,7 @@ public class Main {
           break;
         case 9:
           System.out.println("Goodbye!");
+          scanner.close();
           break;
         default:
           System.out.println("Invalid choice. Please try again.");
@@ -49,7 +49,7 @@ public class Main {
     System.out.print("Enter password: ");
     String password = scanner.next();
 
-        User user = Login.authenticateUser(username, password);
+    User user = Login.authenticateUser(username, password);
     if (user.getId() == -1) {
       System.out.println("Invalid username or password.");
       return null;
@@ -69,7 +69,7 @@ public class Main {
     int loggedInChoice;
     do {
       System.out.println("1. View current user");
-      System.out.println("2. Do things (placeholder)");
+      System.out.println("2. Play MathIsFun");
       System.out.println("9. Logout");
       System.out.print("Enter your choice: ");
       loggedInChoice = scanner.nextInt();
@@ -79,7 +79,7 @@ public class Main {
           UserRepository.printSearchedUser(currentUser.getId());
           break;
         case 2:
-          System.out.println("Doing things (placeholder)..."); // Placeholder action
+          MathIsFun(scanner);
           break;
         case 9:
           System.out.println("Logging out...");
@@ -88,6 +88,31 @@ public class Main {
           System.out.println("Invalid choice. Please try again.");
       }
     } while (loggedInChoice != 9);
+  }
+
+  private static void MathIsFun(Scanner scanner) {
+    System.out.println(
+        "***********************************\n"
+            + "*				  *\n"
+            + "*    MATH IS FUN!                 *\n"
+            + "*                                 *\n"
+            + "***********************************");
+
+    System.out.println(
+        "Select a game below:\n1. Addition     2. Stubtraction     3. Multiplication   4.Division");
+
+    switch (scanner.nextInt()) {
+      case 1: // addition
+        MathFunctions.Addition(scanner);
+        break;
+      case 2: // subtraction
+        MathFunctions.Subtraction(scanner);
+        break;
+      case 3: // multiplication
+        break;
+      case 4: // division
+        break;
+    }
   }
 
   private static void addUser(Scanner scanner) {
