@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 import org.json.simple.JSONObject;
 
@@ -91,27 +92,34 @@ public class Main {
   }
 
   private static void MathIsFun(Scanner scanner) {
-    System.out.println(
-        "***********************************\n"
-            + "*				  *\n"
-            + "*    MATH IS FUN!                 *\n"
-            + "*                                 *\n"
-            + "***********************************");
+    int playAgain = 1;
+    while (playAgain != 0) {
+      System.out.println(
+          "***********************************\n"
+              + "*				  *\n"
+              + "*    MATH IS FUN!                 *\n"
+              + "*                                 *\n"
+              + "***********************************");
 
-    System.out.println(
-        "Select a game below:\n1. Addition     2. Stubtraction     3. Multiplication   4.Division");
+      System.out.println(
+          "Select a game below:\n"
+              + "1. Addition     2. Stubtraction     3. Multiplication   4.Division");
 
-    switch (scanner.nextInt()) {
-      case 1: // addition
-        MathFunctions.Addition(scanner);
-        break;
-      case 2: // subtraction
-        MathFunctions.Subtraction(scanner);
-        break;
-      case 3: // multiplication
-        break;
-      case 4: // division
-        break;
+      switch (scanner.nextInt()) {
+        case 1: // addition
+          ArrayList<Double> grades = MathFunctions.Addition(scanner);
+          break;
+        case 2: // subtraction
+          ArrayList<Double> gradesSub = MathFunctions.Subtraction(scanner);
+          break;
+        case 3: // multiplication
+          break;
+        case 4: // division
+          break;
+      }
+      System.out.println("Would you like to play again?");
+      System.out.println("press 0 to quit, or 1 to continue");
+      playAgain = scanner.nextInt();
     }
   }
 
