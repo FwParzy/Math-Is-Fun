@@ -7,10 +7,18 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+/*
+ * @author Isaac
+ */
 public class UserRepository {
 
   private static final String FILE_NAME = "db.json";
 
+  /*
+   * @author Isaac
+   *
+   * @param user - this is the user to be added to the db file
+   */
   public static void inputUser(User user) {
     int id = getNextId();
     user.setId(id);
@@ -22,16 +30,37 @@ public class UserRepository {
 
     System.out.println(user.getFirstName() + " added successfully.");
   }
-    public static JSONObject userToJson(User user) {
+
+  /*
+   * @author Isaac
+   *
+   * @param user - the user to be changed to json
+   *
+   * @return the json object of the user
+   */
+
+  public static JSONObject userToJson(User user) {
     return user.toJson();
   }
 
+  /*
+   * @author Isaac
+   *
+   * @param userJson - the json object to be changed to a user obj
+   *
+   * @return the user object of the json
+   */
   public static User jsonToUser(JSONObject userJson) {
-    String role = (String) userJson.get("role");
     return User.fromJson(userJson);
   }
 
-
+  /*
+   * @author Isaac
+   *
+   * @param id - the user id you want to search
+   *
+   * @return the user object with the id requested
+   */
   public static User searchUserById(int id) {
     JSONArray users = readUsersFromFile();
     for (Object userObj : users) {
@@ -44,6 +73,12 @@ public class UserRepository {
     return null;
   }
 
+  /*
+   * @author Isaac
+   *
+   * @return the next id avalible
+   * this acts as a "primary key" of sorts
+   */
   public static int getNextId() {
     JSONArray users = readUsersFromFile();
     int maxId = 0;
@@ -59,6 +94,11 @@ public class UserRepository {
     return maxId + 1;
   }
 
+  /*
+   * @author Isaac
+   *
+   * @return JSONArray of all the users in the file
+   */
   public static JSONArray readUsersFromFile() {
     JSONParser parser = new JSONParser();
     JSONArray users;
@@ -80,6 +120,11 @@ public class UserRepository {
     return users;
   }
 
+  /*
+   * @author Isaac
+   *
+   * @param users - the users to be added to the file
+   */
   private static void writeUsersToFile(JSONArray users) {
     try (FileWriter file = new FileWriter(FILE_NAME)) {
       for (Object userObj : users) {
@@ -92,30 +137,47 @@ public class UserRepository {
     }
   }
 
-
-    public static void printSearchedUser(int id) {
-  User user = searchUserById(id);
-  if (user != null) {
-    JSONObject jsonUser = userToJson(user);
-    print(jsonUser);
-  } else {
-    System.out.println("User not found.");
+  /*
+   * @author Isaac
+   *
+   * @param id - the id to print
+   */
+  public static void printSearchedUser(int id) {
+    User user = searchUserById(id);
+    if (user != null) {
+      JSONObject jsonUser = userToJson(user);
+      print(jsonUser);
+    } else {
+      System.out.println("User not found.");
+    }
   }
-}
 
-
+  /*
+   * @author Isaac
+   *
+   * Makes an array of all users and uses the print method
+   */
   public static void printAllUsers() {
     JSONArray users = readUsersFromFile();
     print(users);
   }
 
+  /*
+   * @author Isaac
+   *
+   * @param user - only print one user
+   */
   private static void print(JSONObject user) {
     JSONArray users = new JSONArray();
     users.add(user);
     print(users);
   }
 
-
+  /*
+   * @author Isaac
+   *
+   * @param users - all the users to print in JSONArray format
+   */
   private static void print(JSONArray users) {
     System.out.println(
         "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");

@@ -6,10 +6,23 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+/*
+ * @author Estafani
+ * @author Natalie
+ */
 public class MathFunctions {
   private static final String additionFileName = "addquestions.txt";
   private static final String subtractionFileName = "subquestions.txt";
 
+/*
+ * @author
+ * @author Estafani
+ * @author Natalie
+ *
+ * @param scanner - user input
+ *
+ * @return ArrayList of the outputted grades
+ */
   public static ArrayList<Double> Addition(Scanner scanner) {
 
     System.out.println("Addition");
@@ -63,6 +76,14 @@ public class MathFunctions {
     return scores;
   }
 
+/*
+ * @author Estafani
+ * @author Natalie
+ *
+ * @param scanner - user input
+ *
+ * @return ArrayList of the grades from the questions
+ */
   public static ArrayList<Double> Subtraction(Scanner scanner) {
     System.out.println("SUBTRACTION");
     ArrayList<Double> scores = new ArrayList<>();
@@ -115,6 +136,13 @@ public class MathFunctions {
     return scores;
   }
 
+/*
+ * @author Estafani
+ * @author Natalie
+ *
+ * @param filename for addition questions
+ * @param number of questions to generate
+ */
   // Method to generate addition questions and store them in a text file
   public static void generateQuestions(String fileName, int numQuestions) throws IOException {
     FileWriter writer = new FileWriter(fileName);
@@ -129,6 +157,13 @@ public class MathFunctions {
     writer.close();
   }
 
+/*
+ * @author Estafani
+ * @author Natalie
+ *
+ * @param filename for subtraction questions
+ * @param number of questions to generate
+ */
   // Method to generate subtraction questions and store them in a text file
   public static void generateSubQuestions(String fileName2, int numQuestions2) throws IOException {
     FileWriter writer = new FileWriter(fileName2);
