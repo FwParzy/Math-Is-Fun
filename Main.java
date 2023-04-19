@@ -113,6 +113,7 @@ public class Main {
           ArrayList<Double> gradesSub = MathFunctions.Subtraction(scanner);
           break;
         case 3: // multiplication
+          MathFunctions.Multiplication(scanner);
           break;
         case 4: // division
           break;
