@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -141,5 +142,57 @@ public class MathFunctions {
     }
 
     writer.close();
+  }
+
+/**
+ * @author dellv
+ */
+  public static void Multiplication(Scanner scanner) {
+    // Ask the user to guess how many of them he/she will get correct
+    System.out.print("The program will ask you 10 multiplication questions.");
+    System.out.println("Guess how many of them you will get correct (0-10)?");
+
+    // Store this number in a variable.
+    // This number will be used as a seed
+    // You do not need to use guess variable in the rest of your program, just ignore it
+    int guess = scanner.nextInt();
+    Random random = new Random();
+    random.setSeed(guess);
+
+    // Declare the variables to keep count of correct & incorrect answers
+    int correct = 0, incorrect = 0;
+
+    // Loop through for the 10 quiz questions
+    for (int i = 1; i <= 10; i++) {
+      // Get the two random single digits (1 - 9)
+      int n1 = random.nextInt(9) + 1;
+      int n2 = random.nextInt(9) + 1;
+      // Display the question and get the answer
+      System.out.print("\nQuestion " + i + ": " + n1 + " x " + n2 + " = ");
+      int answer;
+      try {
+        answer = scanner.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Invalid input! Please enter an integer.");
+        scanner.nextLine(); // Clear the input buffer
+        continue; // Skip the rest of the loop iteration and move on to the next question
+      }
+      // Check if the answer is right for each question
+      if (answer == n1 * n2) {
+        // Display a correct message
+        System.out.println("Your answer is correct!");
+        // Increment the count of correct answers by 1 if the answer is right
+        correct++;
+      } else {
+        // Display an incorrect message with the correct answer
+        System.out.println("Your answer is incorrect! The correct answer is " + (n1 * n2));
+        // Else increment the count of incorrect answers by 1 if the answer is wrong
+        incorrect++;
+      }
+    }
+
+    // display the statistics
+    System.out.println("\nCorrect answers: " + correct);
+    System.out.println("Incorrect answers: " + incorrect);
   }
 }
