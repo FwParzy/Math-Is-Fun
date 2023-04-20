@@ -230,4 +230,52 @@ public class MathFunctions {
     System.out.println("\nCorrect answers: " + correct);
     System.out.println("Incorrect answers: " + incorrect);
   }
+  
+  public static void division(Scanner scanner) {
+        String fileName = "division"; // Text file to store questions
+        int numQuestions = 10; // Number of questions in the game
+        int score = 0; // Player's score
+
+        try {
+            // Generate questions and store them in the text file
+            divGenerateQuestions(fileName, numQuestions);
+
+            // Read questions from the text file and start the game
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line;
+            int questionCount = 1;
+
+            System.out.println("Welcome to the Division Game!");
+            System.out.println("You will be asked " + numQuestions + " Division");
+
+            while ((line = reader.readLine()) != null) {
+                System.out.println("Question " + questionCount + ": " + line);
+                System.out.print("Enter your answer: ");
+                int answer = scanner.nextInt();
+                int num1 = Integer.parseInt(line.split("\\s+")[0]);
+                int num2 = Integer.parseInt(line.split("\\s+")[2]);
+                int correctAnswer = num1 / num2;                              
+
+                if (answer == correctAnswer) {
+                    System.out.println("Correct!");
+                    score++;
+                } else {
+                    System.out.println("Incorrect. The correct answer is: " + correctAnswer);
+                }
+
+                questionCount++;
+            }
+
+            System.out.println("Game Over!");
+            System.out.println("Your score: " + score + " out of " + numQuestions);
+
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Failed to read questions from file: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid answer format. Please enter an integer.");
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
 }
