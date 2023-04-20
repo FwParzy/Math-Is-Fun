@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import org.json.simple.JSONObject;
 
+/*
+ * @author Isaac
+ * @author Natalie
+ */
 public class Main {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
@@ -29,7 +33,7 @@ public class Main {
           searchUserById(scanner);
           break;
         case 4:
-          printAllUsers();
+          UserRepository.printAllUsers();
           break;
         case 9:
           System.out.println("Goodbye!");
@@ -43,6 +47,13 @@ public class Main {
     scanner.close();
   }
 
+  /*
+   * @author Isaac
+   *
+   * @param scanner - user input
+   *
+   * @return User - the user if they logged in
+   */
   private static User login(Scanner scanner) {
     System.out.print("Enter username: ");
     String username = scanner.next();
@@ -66,6 +77,13 @@ public class Main {
     return currentUser;
   }
 
+  /*
+   * @author Isaac
+   *
+   * @param scanner - user input
+   *
+   * @return
+   */
   private static void loggedIn(Scanner scanner, User currentUser) {
     int loggedInChoice;
     do {
@@ -91,6 +109,12 @@ public class Main {
     } while (loggedInChoice != 9);
   }
 
+  /*
+   * @author Natalie
+   * @author Isaac
+   *
+   * @param scanner - user input
+   */
   private static void MathIsFun(Scanner scanner) {
     int playAgain = 1;
     while (playAgain != 0) {
@@ -103,7 +127,7 @@ public class Main {
 
       System.out.println(
           "Select a game below:\n"
-              + "1. Addition     2. Stubtraction     3. Multiplication   4.Division");
+              + "1. Addition     2. Subtraction     3. Multiplication   4.Division");
 
       switch (scanner.nextInt()) {
         case 1: // addition
@@ -124,6 +148,11 @@ public class Main {
     }
   }
 
+  /*
+   * @author Isaac
+   *
+   * @param scanner - user input
+   */
   private static void addUser(Scanner scanner) {
     System.out.print("Enter email: ");
     String email = scanner.next();
@@ -145,13 +174,15 @@ public class Main {
     Login.addUser(newUser);
   }
 
+  /*
+   * @author Isaac
+   *
+   * @param scanner - user input
+   *
+   */
   private static void searchUserById(Scanner scanner) {
     System.out.print("Enter user ID: ");
     int id = scanner.nextInt();
     UserRepository.printSearchedUser(id);
-  }
-
-  private static void printAllUsers() {
-    UserRepository.printAllUsers();
   }
 }

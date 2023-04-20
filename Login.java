@@ -3,7 +3,18 @@ import java.security.NoSuchAlgorithmException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+/*
+ * @author Isaac
+ */
 public class Login {
+/*
+ * @author Isaac
+ *
+ * @param username - username that is entered
+ * @param password - password that is entered
+ *
+ * @return - user if they matched username and pass correctly
+ */
   public static User authenticateUser(String username, String password) {
     String encryptedPassword = encryptPassword(password);
     JSONArray users = UserRepository.readUsersFromFile();
@@ -20,13 +31,26 @@ public class Login {
     return null;
   }
 
+/*
+ * @author Isaac
+ *
+ * @param user - The user to be added to the db file
+ */
   public static void addUser(User user) {
     String encryptedPassword = encryptPassword(user.getPassword());
     user.setPassword(encryptedPassword);
     UserRepository.inputUser(user);
   }
 
-  // https://www.javatpoint.com/how-to-encrypt-password-in-java
+/*
+ * @author Isaac
+ *
+ * @param password - the password entered into the program
+ *
+ * @return encryptedPassword - the MD5 encrypted password
+ *
+ * @source https://www.javatpoint.com/how-to-encrypt-password-in-java
+ */
   private static String encryptPassword(String password) {
     String encryptedPassword = null;
     try {
