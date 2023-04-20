@@ -24,5 +24,3 @@ javac -cp json-simple-1.1.1.jar -d Classes *.java
 ```
 java -cp json-simple-1.1.1.jar:Classes Main.java
 ```
-
-Note, The compile and run statements will most likely be outdated soon.
