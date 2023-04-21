@@ -140,6 +140,7 @@ public class Main {
           MathFunctions.Multiplication(scanner);
           break;
         case 4: // division
+          MathFunctions.division(scanner);
           break;
       }
       System.out.println("Would you like to play again?");
