@@ -12,7 +12,6 @@ public class Main {
   public static void main(String[] args) {
     Scanner scanner = new Scanner(System.in);
     int choice = 99;
-    // This defaults to invalid untill we get to 8 options
     JSONObject user;
 
     do {
