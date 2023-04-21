@@ -101,7 +101,7 @@ public class Main {
    * @return
    */
   private static void loggedIn(Scanner scanner, User currentUser) {
-    int loggedInChoice = 8;
+    int loggedInChoice = 99;
     do {
       try {
         System.out.println("1. View current user");
@@ -186,12 +186,26 @@ public class Main {
     }
   }
 
+  /*
+   * @author Isaac
+   *
+   * @param scanner - user input
+   * @param prompt - whatever the user wants
+   *
+   * @return if 9 return null, else continue
+   */
   private static String readInputWithCancel(Scanner scanner, String prompt) {
     System.out.print(prompt);
     String input = scanner.next();
     return input.equals("9") ? null : input;
   }
 
+
+  /*
+   * @author Isaac
+   *
+   * @param scanner - user input
+   */
   private static void addUser(Scanner scanner) {
     try {
       String email = readInputWithCancel(scanner, "Enter email (type 9 to cancel): ");
@@ -234,37 +248,6 @@ public class Main {
       scanner.nextLine(); // Clear the invalid input from the scanner
     }
   }
-
-  /*
-   * @author Isaac
-   *
-   * @param scanner - user input
-   */
-  // private static void addUser(Scanner scanner) {
-  //   try {
-  //     System.out.print("Enter email: ");
-  //     String email = scanner.next();
-  //
-  //     System.out.print("Enter first name: ");
-  //     String firstName = scanner.next();
-  //
-  //     System.out.print("Enter last name: ");
-  //     String lastName = scanner.next();
-  //
-  //     System.out.print("Enter username: ");
-  //     String username = scanner.next();
-  //
-  //     System.out.print("Enter password: ");
-  //     String password = scanner.next();
-  //
-  //     int id = UserRepository.getNextId();
-  //     User newUser = new User(id, email, firstName, lastName, username, password);
-  //     Login.addUser(newUser);
-  //   } catch (InputMismatchException e) {
-  //     System.out.println("That isn't allowed. Please enter a valid input.");
-  //     scanner.nextLine(); // Clear the invalid input from the scanner
-  //   }
-  // }
 
   /*
    * @author Isaac
