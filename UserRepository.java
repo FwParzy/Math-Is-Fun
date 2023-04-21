@@ -180,12 +180,12 @@ public class UserRepository {
    */
   private static void print(JSONArray users) {
     System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
+        "+----+-----------------------+---------------+---------------+-----------------+----------------------------------+");
     System.out.println(
-        "| ID | Email           | First Name    | Last Name     | Username        | Encrypted"
+        "| ID | Email                 | First Name    | Last Name     | Username        | Encrypted"
             + " Password               |");
     System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
+        "+----+-----------------------+---------------+---------------+-----------------+----------------------------------+");
     for (Object userObj : users) {
       JSONObject user = (JSONObject) userObj;
       int id = ((Long) user.get("id")).intValue();
@@ -195,10 +195,10 @@ public class UserRepository {
       String username = (String) user.get("username");
       String encryptedPassword = (String) user.get("password");
       System.out.printf(
-          "| %-2d | %-15s | %-13s | %-13s | %-15s | %-32s |\n",
+          "| %-2d | %-21s | %-13s | %-13s | %-15s | %-32s |\n",
           id, email, firstName, lastName, username, encryptedPassword);
     }
     System.out.println(
-        "+----+-----------------+---------------+---------------+-----------------+----------------------------------+");
+        "+----+-----------------------+---------------+---------------+-----------------+----------------------------------+");
   }
 }
