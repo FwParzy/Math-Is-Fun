@@ -10,20 +10,20 @@ import java.util.Scanner;
 /*
  * @author Estafani
  * @author Natalie
+ * @author dellv
  */
 public class MathFunctions {
   private static final String additionFileName = "addquestions.txt";
   private static final String subtractionFileName = "subquestions.txt";
 
-/*
- * @author
- * @author Estafani
- * @author Natalie
- *
- * @param scanner - user input
- *
- * @return ArrayList of the outputted grades
- */
+  /*
+   * @author Estafani
+   * @author Natalie
+   *
+   * @param scanner - user input
+   *
+   * @return ArrayList of the outputted grades
+   */
   public static ArrayList<Double> Addition(Scanner scanner) {
 
     System.out.println("Addition");
@@ -77,14 +77,14 @@ public class MathFunctions {
     return scores;
   }
 
-/*
- * @author Estafani
- * @author Natalie
- *
- * @param scanner - user input
- *
- * @return ArrayList of the grades from the questions
- */
+  /*
+   * @author Estafani
+   * @author Natalie
+   *
+   * @param scanner - user input
+   *
+   * @return ArrayList of the grades from the questions
+   */
   public static ArrayList<Double> Subtraction(Scanner scanner) {
     System.out.println("SUBTRACTION");
     ArrayList<Double> scores = new ArrayList<>();
@@ -137,13 +137,13 @@ public class MathFunctions {
     return scores;
   }
 
-/*
- * @author Estafani
- * @author Natalie
- *
- * @param filename for addition questions
- * @param number of questions to generate
- */
+  /*
+   * @author Estafani
+   * @author Natalie
+   *
+   * @param filename for addition questions
+   * @param number of questions to generate
+   */
   // Method to generate addition questions and store them in a text file
   public static void generateQuestions(String fileName, int numQuestions) throws IOException {
     FileWriter writer = new FileWriter(fileName);
@@ -158,13 +158,13 @@ public class MathFunctions {
     writer.close();
   }
 
-/*
- * @author Estafani
- * @author Natalie
- *
- * @param filename for subtraction questions
- * @param number of questions to generate
- */
+  /*
+   * @author Estafani
+   * @author Natalie
+   *
+   * @param filename for subtraction questions
+   * @param number of questions to generate
+   */
   // Method to generate subtraction questions and store them in a text file
   public static void generateSubQuestions(String fileName2, int numQuestions2) throws IOException {
     FileWriter writer = new FileWriter(fileName2);
@@ -179,9 +179,9 @@ public class MathFunctions {
     writer.close();
   }
 
-/**
- * @author dellv
- */
+  /*
+   * @author dellv
+   */
   public static void Multiplication(Scanner scanner) {
     // Ask the user to guess how many of them he/she will get correct
     System.out.print("The program will ask you 10 multiplication questions.");
@@ -230,52 +230,69 @@ public class MathFunctions {
     System.out.println("\nCorrect answers: " + correct);
     System.out.println("Incorrect answers: " + incorrect);
   }
-  
+
   public static void division(Scanner scanner) {
-        String fileName = "division"; // Text file to store questions
-        int numQuestions = 10; // Number of questions in the game
-        int score = 0; // Player's score
+    String fileName = "division"; // Text file to store questions
+    int numQuestions = 10; // Number of questions in the game
+    int score = 0; // Player's score
 
-        try {
-            // Generate questions and store them in the text file
-            divGenerateQuestions(fileName, numQuestions);
+    try {
+      // Generate questions and store them in the text file
+      divGenerateQuestions(fileName, numQuestions);
 
-            // Read questions from the text file and start the game
-            BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            String line;
-            int questionCount = 1;
+      // Read questions from the text file and start the game
+      BufferedReader reader = new BufferedReader(new FileReader(fileName));
+      String line;
+      int questionCount = 1;
 
-            System.out.println("Welcome to the Division Game!");
-            System.out.println("You will be asked " + numQuestions + " Division");
+      System.out.println("Welcome to the Division Game!");
+      System.out.println("You will be asked " + numQuestions + " Division");
 
-            while ((line = reader.readLine()) != null) {
-                System.out.println("Question " + questionCount + ": " + line);
-                System.out.print("Enter your answer: ");
-                int answer = scanner.nextInt();
-                int num1 = Integer.parseInt(line.split("\\s+")[0]);
-                int num2 = Integer.parseInt(line.split("\\s+")[2]);
-                int correctAnswer = num1 / num2;                              
+      while ((line = reader.readLine()) != null) {
+        System.out.println("Question " + questionCount + ": " + line);
+        System.out.print("Enter your answer: ");
+        int answer = scanner.nextInt();
+        int num1 = Integer.parseInt(line.split("\\s+")[0]);
+        int num2 = Integer.parseInt(line.split("\\s+")[2]);
+        int correctAnswer = num1 / num2;
 
-                if (answer == correctAnswer) {
-                    System.out.println("Correct!");
-                    score++;
-                } else {
-                    System.out.println("Incorrect. The correct answer is: " + correctAnswer);
-                }
-
-                questionCount++;
-            }
-
-            System.out.println("Game Over!");
-            System.out.println("Your score: " + score + " out of " + numQuestions);
-
-            reader.close();
-        } catch (IOException e) {
-            System.out.println("Failed to read questions from file: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid answer format. Please enter an integer.");
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
+        if (answer == correctAnswer) {
+          System.out.println("Correct!");
+          score++;
+        } else {
+          System.out.println("Incorrect. The correct answer is: " + correctAnswer);
         }
+
+        questionCount++;
+      }
+
+      System.out.println("Game Over!");
+      System.out.println("Your score: " + score + " out of " + numQuestions);
+
+      reader.close();
+    } catch (IOException e) {
+      System.out.println("Failed to read questions from file: " + e.getMessage());
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid answer format. Please enter an integer.");
+    } catch (Exception e) {
+      System.out.println("An error occurred: " + e.getMessage());
     }
+  }
+
+  /*
+   * @author dellv
+   * Method to generate division questions and store them in a text file
+   */
+  public static void divGenerateQuestions(String fileName, int numQuestions) throws IOException {
+    FileWriter writer = new FileWriter(fileName);
+    Random random = new Random();
+
+    for (int i = 0; i < numQuestions; i++) {
+      int num1 = random.nextInt(10) + 1;
+      int num2 = random.nextInt(10) + 1;
+      writer.write(num1 + " / " + num2 + "\n");
+    }
+
+    writer.close();
+  }
 }
