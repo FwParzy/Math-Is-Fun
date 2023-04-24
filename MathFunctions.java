@@ -231,6 +231,13 @@ public class MathFunctions {
     System.out.println("Incorrect answers: " + incorrect);
   }
 
+  /*
+   * @author dellv
+   * @author Estafani
+   *
+   * @param scanner - user input
+   * Method to drive the division game
+   */
   public static void division(Scanner scanner) {
     String fileName = "division"; // Text file to store questions
     int numQuestions = 10; // Number of questions in the game
@@ -247,14 +254,15 @@ public class MathFunctions {
 
       System.out.println("Welcome to the Division Game!");
       System.out.println("You will be asked " + numQuestions + " Division");
+      System.out.print("Enter your answer rounding to the tenths place rounding up and in the format (#.#): ");
 
       while ((line = reader.readLine()) != null) {
         System.out.println("Question " + questionCount + ": " + line);
         System.out.print("Enter your answer: ");
-        int answer = scanner.nextInt();
+        double answer = scanner.nextDouble();
         int num1 = Integer.parseInt(line.split("\\s+")[0]);
         int num2 = Integer.parseInt(line.split("\\s+")[2]);
-        int correctAnswer = num1 / num2;
+        double correctAnswer = Math.round((double)num1 / num2* 10.0)/ 10.0;
 
         if (answer == correctAnswer) {
           System.out.println("Correct!");
